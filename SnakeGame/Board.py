@@ -1,8 +1,8 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from Snake import Snake
-from FoodFactory import FoodFactory
+from SnakeGame.Snake import Snake
+from SnakeGame.FoodFactory import FoodFactory
 import random
 import sys
 
@@ -56,14 +56,6 @@ class Board(QFrame):
     def moveSnake(self):
         self.snake.move(self.msg2statusbar)
 
-    def timerEvent(self, event):
-        if event.timerId() == self.timer.timerId():
-            self.moveSnake()
-            self.isFoodCollision()
-            self.isSuicide()
-            self.update()
-            self.hitWall()
-
     def hitWall(self):
         if self.snake.head[0] < 0 or self.snake.head[0] == Board.HORIZONTAL_BLOCKS_COUNT or \
            self.snake.head[1] < 0 or self.snake.head[1] == Board.VERTICAL_BLOCKS_COUNT:
@@ -76,7 +68,7 @@ class Board(QFrame):
     def isSuicide(self):  # If snake collides with itself, game is over
         for i in range(1, len(self.snake.body)):
             if self.snake.body[i] == self.snake.body[0]:
-                self.msg2statusbar.emit(str("TRUP"))
+                self.msg2statusbar.emit(str("that aint food..."))
                 self.game_started = False
                 self.snake.body = [[x, y] for x in range(0, 61) for y in range(0, 41)]
                 self.timer.stop()
@@ -109,3 +101,11 @@ class Board(QFrame):
             pos = f.pos
             self.drawSquare(painter, rect.left() + pos[0] * self.squareWidth(),
                              board_top + pos[1] * self.squareHeight(), color)
+
+    def timerEvent(self, event):
+        if event.timerId() == self.timer.timerId():
+            self.moveSnake()
+            self.isFoodCollision()
+            self.isSuicide()
+            self.update()
+            self.hitWall()

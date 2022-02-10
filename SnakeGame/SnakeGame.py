@@ -1,7 +1,7 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from Board import Board
+from SnakeGame.Board import Board
 import sys
 #from Snake_AI import Snake_AI
 

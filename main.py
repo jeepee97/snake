@@ -1,5 +1,5 @@
 import sys
-from SnakeGame import SnakeGame
+from SnakeGame.SnakeGame import SnakeGame
 #from MainWindow import MainWindow
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
